@@ -56,7 +56,20 @@ public class UserInfo implements Serializable {
      */
     private String lastLoginIp;
 
+    /**
+     * 头像路径
+     */
+    private String photoPath;
+
     private static final long serialVersionUID = 1L;
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
 
     public String getUserName() {
         return userName;

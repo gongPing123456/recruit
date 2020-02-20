@@ -29,7 +29,13 @@ public enum MsgCode {
 	MOBILE_EMPTY(310,""),
 	MOBILE_FORMAT_MISTAKEN(311,""),
 	EMAIL_FORMAT_MISTAKEN(312,"邮箱格式错误"),
-	MSGCODE_INVALID(313,"验证码无效");
+	MSGCODE_INVALID(313,"验证码无效"),
+	UPDATE_ERROR(314,"修改失败"),
+	INSERT_ERROR(315,"添加失败"),
+	RESUME_NOT_EXIST(316,"简历未添加"),
+	FILE_TYPE_NOT_MATCH(317,"文件类型不符"),
+	JSON_ERROR(318,"json格式异常")
+	;
 
 
 	int code;

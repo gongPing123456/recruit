@@ -35,6 +35,7 @@ public class Constants {
 	 * 简历存储地址
 	 */
 	public static final  String RESUME_PATH="D:\\biye\\resumeAnalysis\\";
+	public static final  String USER_AVATAR_PHOTO="D:\\biye\\user_photo_avatar\\";
 	/**
 	 * 用户role id
 	 */

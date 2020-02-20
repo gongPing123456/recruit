@@ -18,7 +18,10 @@
     <result column="job_experience" jdbcType="VARCHAR" property="jobExperience" />
     <result column="self_evaluation" jdbcType="TIMESTAMP" property="selfEvaluation" />
   </resultMap>
-  
+  <sql id="Base_Column_List">
+    id, `name`, age, sex, email, mobile, qq, birth, address_now, salary_expectation,
+    key_word, update_time,edu_experience,job_experience,self_evaluation
+  </sql>
  <!-- <sql id="Base_Column_List">
     id, `name`, age, sex, email, mobile, qq, birth, address_now, salary_expectation, 
     key_word, update_time
@@ -52,7 +55,101 @@
       #{eduExperience,jdbcType=LONGVARCHAR}, #{jobExperience,jdbcType=LONGVARCHAR}, #{selfEvaluation,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.gp.project.pojo.UserResumeInfoWithBLOBs">
+  
+  
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gp.project.pojo.UserResumeInfoWithBLOBs">
+    update user_resume_info
+    set `name` = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=VARCHAR},
+      address_now = #{addressNow,jdbcType=VARCHAR},
+      salary_expectation = #{salaryExpectation,jdbcType=VARCHAR},
+      key_word = #{keyWord,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      edu_experience = #{eduExperience,jdbcType=LONGVARCHAR},
+      job_experience = #{jobExperience,jdbcType=LONGVARCHAR},
+      self_evaluation = #{selfEvaluation,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gp.project.pojo.UserResumeInfo">
+    update user_resume_info
+    set `name` = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=VARCHAR},
+      address_now = #{addressNow,jdbcType=VARCHAR},
+      salary_expectation = #{salaryExpectation,jdbcType=VARCHAR},
+      key_word = #{keyWord,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>-->
+  <!--根据id查询信息-->
+  <select id="getResumeById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_resume_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.gp.project.pojo.UserResumeInfo">
+    update user_resume_info
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="addressNow != null">
+        address_now = #{addressNow,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryExpectation != null">
+        salary_expectation = #{salaryExpectation,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWord != null">
+        key_word = #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eduExperience != null">
+        edu_experience = #{eduExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="jobExperience != null">
+        job_experience = #{jobExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="selfEvaluation != null">
+        self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insertSelective" parameterType="com.gp.project.pojo.UserResumeInfo">
     insert into user_resume_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -100,6 +197,9 @@
       <if test="selfEvaluation != null">
         self_evaluation,
       </if>
+      <if test=" !=null">
+      
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,95 +239,14 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="eduExperience != null">
-        #{eduExperience,jdbcType=LONGVARCHAR},
+        #{eduExperience,jdbcType=VARCHAR},
       </if>
       <if test="jobExperience != null">
-        #{jobExperience,jdbcType=LONGVARCHAR},
+        #{jobExperience,jdbcType=VARCHAR},
       </if>
       <if test="selfEvaluation != null">
-        #{selfEvaluation,jdbcType=LONGVARCHAR},
+        #{selfEvaluation,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gp.project.pojo.UserResumeInfoWithBLOBs">
-    update user_resume_info
-    <set>
-      <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="qq != null">
-        qq = #{qq,jdbcType=VARCHAR},
-      </if>
-      <if test="birth != null">
-        birth = #{birth,jdbcType=VARCHAR},
-      </if>
-      <if test="addressNow != null">
-        address_now = #{addressNow,jdbcType=VARCHAR},
-      </if>
-      <if test="salaryExpectation != null">
-        salary_expectation = #{salaryExpectation,jdbcType=VARCHAR},
-      </if>
-      <if test="keyWord != null">
-        key_word = #{keyWord,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="eduExperience != null">
-        edu_experience = #{eduExperience,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="jobExperience != null">
-        job_experience = #{jobExperience,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="selfEvaluation != null">
-        self_evaluation = #{selfEvaluation,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gp.project.pojo.UserResumeInfoWithBLOBs">
-    update user_resume_info
-    set `name` = #{name,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      sex = #{sex,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      qq = #{qq,jdbcType=VARCHAR},
-      birth = #{birth,jdbcType=VARCHAR},
-      address_now = #{addressNow,jdbcType=VARCHAR},
-      salary_expectation = #{salaryExpectation,jdbcType=VARCHAR},
-      key_word = #{keyWord,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      edu_experience = #{eduExperience,jdbcType=LONGVARCHAR},
-      job_experience = #{jobExperience,jdbcType=LONGVARCHAR},
-      self_evaluation = #{selfEvaluation,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gp.project.pojo.UserResumeInfo">
-    update user_resume_info
-    set `name` = #{name,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      sex = #{sex,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      qq = #{qq,jdbcType=VARCHAR},
-      birth = #{birth,jdbcType=VARCHAR},
-      address_now = #{addressNow,jdbcType=VARCHAR},
-      salary_expectation = #{salaryExpectation,jdbcType=VARCHAR},
-      key_word = #{keyWord,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>-->
 </mapper>

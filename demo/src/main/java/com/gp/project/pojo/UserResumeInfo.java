@@ -83,6 +83,30 @@ public class UserResumeInfo implements Serializable {
      */
     private String selfEvaluation;
 
+    public String getEduExperience() {
+        return eduExperience;
+    }
+
+    public void setEduExperience(String eduExperience) {
+        this.eduExperience = eduExperience;
+    }
+
+    public String getJobExperience() {
+        return jobExperience;
+    }
+
+    public void setJobExperience(String jobExperience) {
+        this.jobExperience = jobExperience;
+    }
+
+    public String getSelfEvaluation() {
+        return selfEvaluation;
+    }
+
+    public void setSelfEvaluation(String selfEvaluation) {
+        this.selfEvaluation = selfEvaluation;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {

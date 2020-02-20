@@ -21,16 +21,19 @@ import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.net.ssl.SSLContext;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * @time 2020/2/18 14:14
  * @Author gp
  */
 public class CommonUtils {
-
-
 
 
 	/**
@@ -57,8 +60,7 @@ public class CommonUtils {
 	 * 教育经历	-	学校名称	string	学校名称
 	 * 教育经历	-	专业	string	专业
 	 */
-	public static String uploadFile(String url, String filePath) throws Exception
-	{
+	public static String uploadResumeFile(String url, String filePath) throws Exception {
 		File f = new File(filePath);
 		HttpPost httpPost = new HttpPost(url);
 		HttpEntity req = MultipartEntityBuilder.create()
@@ -93,15 +95,15 @@ public class CommonUtils {
 		}
 		return decodeUnicode(result);
 	}
+
 	/**
 	 * json格式Unicode转中文
 	 */
-	public static String decodeUnicode(String theString)
-	{
+	public static String decodeUnicode(String theString) {
 		char aChar;
 		int len = theString.length();
 		StringBuffer outBuffer = new StringBuffer(len);
-		for (int x = 0; x < len;) {
+		for (int x = 0; x < len; ) {
 			aChar = theString.charAt(x++);
 			if (aChar == '\\') {
 				aChar = theString.charAt(x++);
@@ -147,21 +149,18 @@ public class CommonUtils {
 					}
 					outBuffer.append((char) value);
 				} else {
-					if (aChar == 't'){
+					if (aChar == 't') {
 						aChar = '\t';
-					}
-					else if (aChar == 'r'){
+					} else if (aChar == 'r') {
 						aChar = '\r';
-					}
-					else if (aChar == 'n'){
+					} else if (aChar == 'n') {
 						aChar = '\n';
-					}
-					else if (aChar == 'f'){
+					} else if (aChar == 'f') {
 						aChar = '\f';
 					}
 					outBuffer.append(aChar);
 				}
-			} else{
+			} else {
 				outBuffer.append(aChar);
 			}
 		}
@@ -171,10 +170,9 @@ public class CommonUtils {
 	/**
 	 * 接收文件
 	 */
-	public static void receiveFile(MultipartFile file, String finalPath) throws Exception
-	{
+	public static void receiveFile(MultipartFile file, String finalPath) throws Exception {
 		File path = new File(Constants.RESUME_PATH);
-		if (!path.exists() || !path.isDirectory()){
+		if (!path.exists() || !path.isDirectory()) {
 			path.mkdir();
 		}
 		File resume = new File(finalPath);
@@ -184,11 +182,56 @@ public class CommonUtils {
 	/**
 	 * 删除文件
 	 */
-	public static void deleteFile(String finalPath)
-	{
+	public static void deleteFile(String finalPath) {
 		File file1 = new File(finalPath);
-		if (file1.exists()){
+		if (file1.exists()) {
 			file1.delete();
 		}
 	}
+
+	/**
+	 * 判断是否为图片
+	 * true  是图片
+	 * false  不是图片
+	 *
+	 * @param filePath
+	 */
+	public static Boolean isPicture(String filePath) throws IOException {
+		Boolean result;
+		File file = new File(filePath);
+		ImageInputStream iis = null;
+		try {
+			iis = ImageIO.createImageInputStream(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Iterator iter = ImageIO.getImageReaders(iis);
+		if (!iter.hasNext()) {//文件不是图片
+			System.out.println("此文件不为图片文件");
+			result = false;
+		} else {
+			System.out.println("是");
+			result = true;
+		}
+
+		BufferedImage bi = ImageIO.read(file);
+
+		if (bi == null) {
+			System.out.println("此文件不为图片文件");
+			result = false;
+		} else {
+			result = true;
+			System.out.println("是");
+		}
+		return result;
+	}
+	//获取文件的后缀
+	public static String  fileExtension(MultipartFile file){
+		String extension=file.getOriginalFilename();
+		String[] split = extension.split("\\.");
+		return split[1];
+
+	}
+
+
 }

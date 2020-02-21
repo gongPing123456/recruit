@@ -1,4 +1,4 @@
-package com.gp.project.Utils;
+package com.gp.project.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

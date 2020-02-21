@@ -1,4 +1,4 @@
-package com.gp.project.Utils;
+package com.gp.project.utils;
 
 /**
  * 图片工具类

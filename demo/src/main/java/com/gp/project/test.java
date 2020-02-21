@@ -1,23 +1,16 @@
 package com.gp.project;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.gp.project.Utils.CommonUtils;
-import com.gp.project.Utils.MD5;
+import com.gp.project.utils.CommonUtils;
+import com.gp.project.utils.MD5;
+import com.gp.project.pojo.Socket.Message;
 import com.gp.project.pojo.vo.ResumeVo;
-import com.sun.media.sound.SoftTuning;
 import org.junit.Test;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 
 /**
  * @time 2019/11/11 16:10
@@ -43,12 +36,9 @@ public class test {
 
 @Test
 public  void aVoid() throws Exception {
-	String s = CommonUtils.uploadResumeFile("http://cv-extract.com/api/extract",
-			"C:\\Users\\Gp\\Desktop\\java.pdf"
-	);
-	System.out.println(s);
-	ResumeVo resumeVo= JSON.parseObject(s,ResumeVo.class);
-	resumeVo.toString();
+	Message message=new Message();
+	message.setName("1");
+	System.out.println(message.toString());
 }
 	/*
 	 * 将时间转换为时间戳

@@ -1,22 +1,16 @@
 package com.gp.project.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.gp.project.Utils.CommonUtils;
-import com.gp.project.Utils.DateUtils;
+import com.gp.project.utils.DateUtils;
 import com.gp.project.common.Result;
 import com.gp.project.service.UserService;
-import org.apache.ibatis.annotations.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.net.httpserver.HttpsServerImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
-import java.text.ParseException;
 
 /**
  * 用户管理模块

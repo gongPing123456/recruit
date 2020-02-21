@@ -1,4 +1,4 @@
-package com.gp.project.Utils;
+package com.gp.project.utils;
 
 import com.gp.project.common.Constants;
 import org.apache.http.HttpEntity;

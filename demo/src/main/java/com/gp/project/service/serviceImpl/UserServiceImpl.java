@@ -1,9 +1,9 @@
 package com.gp.project.service.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
-import com.gp.project.Utils.CommonUtils;
-import com.gp.project.Utils.JWTUtils;
-import com.gp.project.Utils.MD5;
+import com.gp.project.utils.CommonUtils;
+import com.gp.project.utils.JWTUtils;
+import com.gp.project.utils.MD5;
 import com.gp.project.common.Constants;
 import com.gp.project.common.MsgCode;
 import com.gp.project.common.Result;

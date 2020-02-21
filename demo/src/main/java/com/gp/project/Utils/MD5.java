@@ -1,4 +1,4 @@
-package com.gp.project.Utils;
+package com.gp.project.utils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

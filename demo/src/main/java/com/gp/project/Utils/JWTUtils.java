@@ -1,16 +1,11 @@
-package com.gp.project.Utils;
+package com.gp.project.utils;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jose.crypto.RSASSASigner;
-import com.nimbusds.jose.crypto.RSASSAVerifier;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.ParseException;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

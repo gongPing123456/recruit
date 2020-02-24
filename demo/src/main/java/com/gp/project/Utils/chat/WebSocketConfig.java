@@ -1,5 +1,7 @@
 package com.gp.project.utils.chat;
 
+import com.gp.project.service.UserMessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
@@ -22,6 +24,11 @@ public class WebSocketConfig {
 		public MyEndpointConfigure newConfigure() {
 			return new MyEndpointConfigure();
 		}
+
+	@Autowired
+	private  void  setUserMessageService(UserMessageService userMessageService){
+			ProductWebSocket.userMessageService=userMessageService;
 	}
+}
 
 

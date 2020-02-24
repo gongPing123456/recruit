@@ -159,7 +159,7 @@ public class UserController {
 	public  Result updateUserInfo(@RequestBody String json){
 		long begin =System.currentTimeMillis();
 		Result result= userService.updateUserInfo(json);
-		LOGGER.info("在"+ DateUtils.stampToDate(String.valueOf(begin))+"查看该用户是否已经添加简历");
+		LOGGER.info("在"+ DateUtils.stampToDate(String.valueOf(begin))+"修改用户信息");
 		return result;
 	}
 }

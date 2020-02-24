@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.project.mapper.CommonJobSecondTitleDAO">
+  <resultMap id="BaseResultMap" type="com.gp.project.pojo.Common.CommonJobSecondTitle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fir_title_id" jdbcType="INTEGER" property="firTitleId" />
+    <result column="sec_title" jdbcType="VARCHAR" property="secTitle" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fir_title_id, sec_title, `status`, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from common_job_second_title
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_job_second_title
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gp.project.pojo.Common.CommonJobSecondTitle">
+    insert into common_job_second_title (id, fir_title_id, sec_title, 
+      `status`, update_time)
+    values (#{id,jdbcType=INTEGER}, #{firTitleId,jdbcType=INTEGER}, #{secTitle,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gp.project.pojo.Common.CommonJobSecondTitle">
+    insert into common_job_second_title
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="firTitleId != null">
+        fir_title_id,
+      </if>
+      <if test="secTitle != null">
+        sec_title,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="firTitleId != null">
+        #{firTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="secTitle != null">
+        #{secTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gp.project.pojo.Common.CommonJobSecondTitle">
+    update common_job_second_title
+    <set>
+      <if test="firTitleId != null">
+        fir_title_id = #{firTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="secTitle != null">
+        sec_title = #{secTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gp.project.pojo.Common.CommonJobSecondTitle">
+    update common_job_second_title
+    set fir_title_id = #{firTitleId,jdbcType=INTEGER},
+      sec_title = #{secTitle,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectFirstId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from common_job_second_title
+    where fir_title_id=#{id} and status=1
+  </select>
+</mapper>

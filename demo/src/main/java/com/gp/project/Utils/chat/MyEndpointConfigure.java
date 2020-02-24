@@ -1,9 +1,12 @@
 package com.gp.project.utils.chat;
 
+import com.gp.project.service.UserMessageService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Bean;
 
 import javax.websocket.server.ServerEndpointConfig;
 
@@ -26,4 +29,6 @@ public class MyEndpointConfigure extends ServerEndpointConfig.Configurator imple
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		MyEndpointConfigure.context = applicationContext;
 	}
+
+
 }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.project.mapper.CommonCityDAO">
+	<resultMap id="BaseResultMap" type="com.gp.project.pojo.Common.CommonCity">
+		<id column="id" jdbcType="INTEGER" property="id"/>
+		<result column="province_id" jdbcType="INTEGER" property="provinceId"/>
+		<result column="city" jdbcType="VARCHAR" property="city"/>
+		<result column="hot_status" jdbcType="INTEGER" property="hotStatus"/>
+		<result column="icon" jdbcType="VARCHAR" property="icon"/>
+		<result column="status" jdbcType="INTEGER" property="status"/>
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+    id, province_id, city, hot_status, icon, `status`, update_time
+  </sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from common_city
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_city
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+	<insert id="insert" parameterType="com.gp.project.pojo.Common.CommonCity">
+    insert into common_city (id, province_id, city, 
+      hot_status, icon, `status`, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, 
+      #{hotStatus,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+	<insert id="insertSelective" parameterType="com.gp.project.pojo.Common.CommonCity">
+		insert into common_city
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="provinceId != null">
+				province_id,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="hotStatus != null">
+				hot_status,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="status != null">
+				`status`,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="provinceId != null">
+				#{provinceId,jdbcType=INTEGER},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="hotStatus != null">
+				#{hotStatus,jdbcType=INTEGER},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gp.project.pojo.Common.CommonCity">
+		update common_city
+		<set>
+			<if test="provinceId != null">
+				province_id = #{provinceId,jdbcType=INTEGER},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="hotStatus != null">
+				hot_status = #{hotStatus,jdbcType=INTEGER},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				`status` = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.gp.project.pojo.Common.CommonCity">
+    update common_city
+    set province_id = #{provinceId,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      hot_status = #{hotStatus,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+	<select id="selectByProvinceId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from common_city
+		where province_id = #{id,jdbcType=INTEGER}
+	</select>
+</mapper>

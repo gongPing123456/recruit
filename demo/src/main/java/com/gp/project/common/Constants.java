@@ -36,6 +36,19 @@ public class Constants {
 	 */
 	public static final  String RESUME_PATH="D:\\biye\\resumeAnalysis\\";
 	public static final  String USER_AVATAR_PHOTO="D:\\biye\\user_photo_avatar\\";
+	public static final  String JSON_PATH="D:\\biye\\json\\";
+
+	/**
+	 * JSON的存储
+	 */
+	public static final String CITY_JSON="city.json";
+	public static final String JOB_JSON="job.json";
+	public static final String KEYWORD_JSON="keyword.json";
+	public static final String EXPERIENCE_JSON="experience.json";
+	public static final String EDUCATION_JSON="education.json";
+	public static final String SALARY_JSON="salary.json";
+	public static final String WELFARE_JSON="welfare.json";
+
 	/**
 	 * 用户role id
 	 */

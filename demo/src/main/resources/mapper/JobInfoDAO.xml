@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.project.mapper.JobInfoDAO">
+  <resultMap id="BaseResultMap" type="com.gp.project.pojo.JobInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="experience_id" jdbcType="INTEGER" property="experienceId" />
+    <result column="education_id" jdbcType="INTEGER" property="educationId" />
+    <result column="min_salary" jdbcType="INTEGER" property="minSalary" />
+    <result column="max_salary" jdbcType="INTEGER" property="maxSalary" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="job_content" jdbcType="VARCHAR" property="jobContent" />
+    <result column="job_requirement" jdbcType="VARCHAR" property="jobRequirement" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, job_name, post_id, company_id, city_id, experience_id, education_id, min_salary, 
+    max_salary, add_time, update_time,job_content,job_requirement
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from job_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from job_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gp.project.pojo.JobInfo">
+    insert into job_info (id, job_name, post_id, 
+      company_id, city_id, experience_id, 
+      education_id, min_salary, max_salary, 
+      add_time, update_time, job_content, 
+      job_requirement)
+    values (#{id,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, 
+      #{companyId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{experienceId,jdbcType=INTEGER}, 
+      #{educationId,jdbcType=INTEGER}, #{minSalary,jdbcType=INTEGER}, #{maxSalary,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{jobContent,jdbcType=VARCHAR},
+      #{jobRequirement,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gp.project.pojo.JobInfo">
+    insert into job_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jobName != null">
+        job_name,
+      </if>
+      <if test="postId != null">
+        post_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="experienceId != null">
+        experience_id,
+      </if>
+      <if test="educationId != null">
+        education_id,
+      </if>
+      <if test="minSalary != null">
+        min_salary,
+      </if>
+      <if test="maxSalary != null">
+        max_salary,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="jobContent != null">
+        job_content,
+      </if>
+      <if test="jobRequirement != null">
+        job_requirement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="experienceId != null">
+        #{experienceId,jdbcType=INTEGER},
+      </if>
+      <if test="educationId != null">
+        #{educationId,jdbcType=INTEGER},
+      </if>
+      <if test="minSalary != null">
+        #{minSalary,jdbcType=INTEGER},
+      </if>
+      <if test="maxSalary != null">
+        #{maxSalary,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobContent != null">
+        #{jobContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirement != null">
+        #{jobRequirement,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gp.project.pojo.JobInfo">
+    update job_info
+    <set>
+      <if test="jobName != null">
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="experienceId != null">
+        experience_id = #{experienceId,jdbcType=INTEGER},
+      </if>
+      <if test="educationId != null">
+        education_id = #{educationId,jdbcType=INTEGER},
+      </if>
+      <if test="minSalary != null">
+        min_salary = #{minSalary,jdbcType=INTEGER},
+      </if>
+      <if test="maxSalary != null">
+        max_salary = #{maxSalary,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobContent != null">
+        job_content = #{jobContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirement != null">
+        job_requirement = #{jobRequirement,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gp.project.pojo.JobInfo">
+    update job_info
+    set job_name = #{jobName,jdbcType=VARCHAR},
+      post_id = #{postId,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      experience_id = #{experienceId,jdbcType=INTEGER},
+      education_id = #{educationId,jdbcType=INTEGER},
+      min_salary = #{minSalary,jdbcType=INTEGER},
+      max_salary = #{maxSalary,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      job_content = #{jobContent,jdbcType=VARCHAR},
+      job_requirement = #{jobRequirement,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gp.project.pojo.JobInfo">
+    update job_info
+    set job_name = #{jobName,jdbcType=VARCHAR},
+      post_id = #{postId,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      experience_id = #{experienceId,jdbcType=INTEGER},
+      education_id = #{educationId,jdbcType=INTEGER},
+      min_salary = #{minSalary,jdbcType=INTEGER},
+      max_salary = #{maxSalary,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},job_content = #{jobContent,jdbcType=VARCHAR},
+      job_requirement = #{jobRequirement,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

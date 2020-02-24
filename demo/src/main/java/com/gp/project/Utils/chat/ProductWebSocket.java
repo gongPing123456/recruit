@@ -3,8 +3,13 @@ package com.gp.project.utils.chat;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
+import com.gp.project.pojo.Socket.ChatFriend;
+import com.gp.project.pojo.Socket.ChatMessage;
+import com.gp.project.pojo.UserInfo;
+import com.gp.project.service.UserMessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -30,6 +35,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProductWebSocket {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	public   static UserMessageService userMessageService;
+	/**
+	 * 好友列表
+	 */
+	private ChatFriend chatFriend;
+	/**
+	 * 消息列表
+	 */
+	private ChatMessage chatMessage;
 	/**
 	 * 在线人数
 	 */
@@ -56,17 +71,20 @@ public class ProductWebSocket {
 	{
 		onlineNumber++;
 		logger.info("现在来连接的客户id："+session.getId()+"用户名："+username);
+		//获取好友列表
+		List<UserInfo> friendlist = userMessageService.getFriendlist(username);
 		this.username = username;
 		this.session = session;
 		logger.info("有新连接加入！ 当前在线人数" + onlineNumber);
 		try {
 			//messageType 1代表上线 2代表下线 3代表在线名单 4代表普通消息
-			//先给所有人发送通知，说我上线了
-			Map<String,Object> map1 = Maps.newHashMap();
-			map1.put("messageType",1);
-			map1.put("username",username);
-			sendMessageAll(JSON.toJSONString(map1),username);
-
+			//先给好友发送通知，说我上线了
+			if (friendlist != null){
+				Map<String,Object> map1 = Maps.newHashMap();
+				map1.put("messageType",1);
+				map1.put("username",username);
+				sendMessageToFriends(JSON.toJSONString(map1),friendlist);
+			}
 			//把自己的信息加入到map当中去
 			clients.put(username, this);
 			//给自己发一条消息：告诉自己现在都有谁在线
@@ -75,6 +93,7 @@ public class ProductWebSocket {
 			//移除掉自己
 			Set<String> set = clients.keySet();
 			map2.put("onlineUsers",set);
+			map2.put("friends",checkOnlineFriend(friendlist));
 			sendMessageTo(JSON.toJSONString(map2),username);
 		}
 		catch (IOException e){
@@ -97,6 +116,7 @@ public class ProductWebSocket {
 	public void onClose()
 	{
 		onlineNumber--;
+
 		//webSockets.remove(this);
 		clients.remove(username);
 		try {
@@ -165,9 +185,53 @@ public class ProductWebSocket {
 		}
 	}
 
+	/**
+	 * 发送给自己的好友
+	 * @param message
+	 */
+	public void sendMessageToFriends(String message,List<UserInfo> userInfoList){
+		for (ProductWebSocket item : clients.values()) {
+//			item.session.getAsyncRemote().sendText(message);
+			for (int i=0;i<userInfoList.size();i++){
+				if (item.username.equals(userInfoList.get(i).getLoginName())){
+					item.session.getAsyncRemote().sendText(message);
+				}
+			}
+		}
+	}
+
 	public static synchronized int getOnlineCount() {
 		return onlineNumber;
 	}
 
+	/**
+	 * 判断在线好友
+	 * @param friends
+	 * @return
+	 */
+	public List<UserInfo> checkOnlineFriend(List<UserInfo> friends){
+		List<UserInfo> list=new ArrayList<>();
+		for (ProductWebSocket item:clients.values())
+		{
+			for (int i=0;i<friends.size();i++){
+				if (item.username.equals(friends.get(i).getLoginName())){
+					UserInfo userInfo = new UserInfo();
+					userInfo.setLoginName(item.username);
+					list.add(userInfo);
+				}
+			}
+		}
+		return list;
+	}
 
+	/**
+	 * 发送语句
+	 * @param productWebSocket
+	 * @param message
+	 */
+	public void sessionSend(ProductWebSocket productWebSocket,String message){
+		synchronized(productWebSocket.session){
+			productWebSocket.session.getAsyncRemote().sendText(message);
+		}
+	}
 }

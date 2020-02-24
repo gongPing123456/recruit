@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.project.mapper.ChatMessageDAO">
+  <resultMap id="BaseResultMap" type="com.gp.project.pojo.Socket.ChatMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="chat_friend_id" jdbcType="INTEGER" property="chatFriendId" />
+    <result column="msg_type" jdbcType="INTEGER" property="msgType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="msg_url" jdbcType="VARCHAR" property="msgUrl" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, chat_friend_id, msg_type, content, msg_url, creat_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chat_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gp.project.pojo.Socket.ChatMessage">
+    insert into chat_message (id, chat_friend_id, msg_type, 
+      content, msg_url, creat_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{chatFriendId,jdbcType=INTEGER}, #{msgType,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{msgUrl,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gp.project.pojo.Socket.ChatMessage">
+    insert into chat_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="chatFriendId != null">
+        chat_friend_id,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="msgUrl != null">
+        msg_url,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="chatFriendId != null">
+        #{chatFriendId,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUrl != null">
+        #{msgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gp.project.pojo.Socket.ChatMessage">
+    update chat_message
+    <set>
+      <if test="chatFriendId != null">
+        chat_friend_id = #{chatFriendId,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUrl != null">
+        msg_url = #{msgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gp.project.pojo.Socket.ChatMessage">
+    update chat_message
+    set chat_friend_id = #{chatFriendId,jdbcType=INTEGER},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      msg_url = #{msgUrl,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
